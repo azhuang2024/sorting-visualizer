@@ -26,6 +26,19 @@ export default class SortingVisualizer extends React.Component {
 
     }
 
+    testMerge() {
+        for (let i=0; i<100; ++i) {
+            const arr = [];
+            const bound = randomIntFromInterval(1,1000);
+            for (let j=0; j<bound; ++j) {
+                arr.push(randomIntFromInterval(-1000,1000));
+            }
+            const sortedArray = arr.slice().sort((a,b) => a-b);
+            const mySortedArray = mergeSortHelper(arr);
+            console.log(arrayEqual(sortedArray, mySortedArray));
+        }
+    }
+
     heapSort() {
 
     }
@@ -56,6 +69,7 @@ export default class SortingVisualizer extends React.Component {
                 <button onClick={() => this.heapSort()}>Heap Sort</button>
                 <button onClick={() => this.quickSort()}>Quick Sort</button>
                 <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                <button onClick={() => this.testMerge()}>Test Merge Sort</button>
             </div>
         );
     }
@@ -97,4 +111,15 @@ function merge(firstArray, secondArray) {
     while (j<secondArray.length) {
         sortedArray.push(secondArray[j++]);
     }
+    return sortedArray;
+}
+
+function arrayEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+        return false;
+    }
+    for (let i=0; i<arr1.length; ++i) {
+        if (arr1[i] !== arr2[i]) return false;
+    }
+    return true;
 }
